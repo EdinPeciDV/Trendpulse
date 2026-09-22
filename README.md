@@ -1,18 +1,37 @@
-Hi, I'm Edin 👋
+# TrendPulse
 
-Backend developer at Cacttus (Prishtina, Kosovo), building Node.js / TypeScript services for IoT-driven SaaS platforms.
+> Crypto market signals dashboard — live prices, technical indicators, and ML-driven price-direction predictions.
 
-I work close to the data — REST APIs, message pipelines (Kafka), and the systems that keep IoT devices talking to the cloud. On the side I build full-stack projects to sharpen the frontend and ML sides too.
+TrendPulse pulls market data for crypto pairs, computes technical indicators (moving averages, RSI), generates buy/sell signals, and layers on a machine-learning model that predicts short-term price direction. Built as a full-stack learning project.
 
-What I'm working on
-🔭 TrendPulse — a crypto & forex signals app: React frontend, Supabase backend, and a Python ML prediction pipeline. (link coming soon)
-🌐 Personal site / resume — (link coming soon)
-Tech I work with
+## Planned stack
 
-Backend: Node.js · TypeScript · JavaScript · Python · Java · REST APIs Data & ML: MySQL · Kafka · LangChain Frontend: React Ops & fundamentals: Docker · Kubernetes · networking
+- **Frontend:** React (Vite), chart library for price visualization
+- **Backend / data:** Supabase (Postgres + edge functions)
+- **ML pipeline:** Python (pandas, scikit-learn), FastAPI for serving predictions
+- **Deploy:** Netlify (frontend)
 
-Reach me
-📫 edinpeci11@gmail.com
-💼 (LinkedIn — add your link)
+## Roadmap
 
-<sub>Currently rebuilding TrendPulse in the open, one small commit at a time.</sub>
+- [ ] Frontend scaffold — Vite + React, routing, landing page
+- [ ] Layout, navigation, and core UI components
+- [ ] Signals list and price chart (mock data)
+- [ ] Theme and styling
+- [ ] Supabase project + schema (prices, signals)
+- [ ] Fetch live market data and store it
+- [ ] Wire frontend to real Supabase data
+- [ ] Indicators: moving average, RSI
+- [ ] Signal rules (e.g. MA crossover)
+- [ ] Python ML pipeline — data pull, cleaning, features
+- [ ] Baseline model (price direction up/down) + evaluation
+- [ ] Prediction endpoint and integration into signal flow
+- [ ] Show predictions + confidence in the UI
+- [ ] Deploy, screenshots, full README, tests
+
+## Status
+
+🚧 In active development. Follow along — commits land daily.
+
+## License
+
+[MIT](LICENSE) © Edin Peci
