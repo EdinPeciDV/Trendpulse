@@ -1,19 +1,32 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  /* text + surfaces */
+  --text: #5b6472;
+  --text-h: #0b0f17;
+  --bg: #ffffff;
+  --surface: #f7f8fa;
+  --border: #e6e8ec;
+  --code-bg: #f2f4f7;
+  --muted: #8b94a7;
+
+  /* brand accent (teal) */
+  --accent: #0ea5a4;
+  --accent-bg: rgba(14, 165, 164, 0.1);
+  --accent-border: rgba(14, 165, 164, 0.5);
+
+  /* signal colors */
+  --up: #16a34a;          /* buy / price up   */
+  --up-bg: rgba(22, 163, 74, 0.1);
+  --down: #dc2626;        /* sell / price down */
+  --down-bg: rgba(220, 38, 38, 0.1);
+
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
+
+  --radius: 12px;
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
@@ -34,19 +47,23 @@
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
+    --bg: #0b0e14;
+    --surface: #151a23;
+    --border: #232a36;
     --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
+    --muted: #8b94a7;
+
+    --accent: #2dd4bf;
+    --accent-bg: rgba(45, 212, 191, 0.15);
+    --accent-border: rgba(45, 212, 191, 0.5);
+
+    --up: #3ddc97;
+    --up-bg: rgba(61, 220, 151, 0.15);
+    --down: #ff5c7a;
+    --down-bg: rgba(255, 92, 122, 0.15);
+
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
   }
 }
 
@@ -58,7 +75,6 @@ body {
   width: 1126px;
   max-width: 100%;
   margin: 0 auto;
-  text-align: center;
   border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
@@ -82,6 +98,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -91,21 +108,50 @@ h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
 code {
+  font-family: var(--mono);
   font-size: 15px;
   line-height: 135%;
+  display: inline-flex;
   padding: 4px 8px;
+  border-radius: 4px;
+  color: var(--text-h);
   background: var(--code-bg);
 }
+
+/* --- TrendPulse building blocks --- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.badge-buy {
+  color: var(--up);
+  background: var(--up-bg);
+}
+
+.badge-sell {
+  color: var(--down);
+  background: var(--down-bg);
+}
+
+.text-up   { color: var(--up); }
+.text-down { color: var(--down); }
+.text-muted { color: var(--muted); }
