@@ -8,3 +8,7 @@ export const mockSignals = [
   { id: 5, pair: "XRP/USDT", type: "SELL", price: 0.6120,   change: -3.7, confidence: 0.74, time: "2026-09-26T07:25:00Z" },
   { id: 6, pair: "DOGE/USDT", type: "BUY", price: 0.1284,   change: 8.1,  confidence: 0.63, time: "2026-09-26T07:10:00Z" },
 ];
+
+// Unique pairs present in the signals — single source of truth for the selector.
+export const PAIRS = [...new Set(mockSignals.map((s) => s.pair))];
+export const DEFAULT_PAIR = PAIRS[0]; // "BTC/USDT"
