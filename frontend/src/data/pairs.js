@@ -1,8 +1,6 @@
-  export const PAIRS = [
-    { id: "BTC-USD", label: "BTC/USD", base: "BTC", quote: "USD" },
-    { id: "ETH-USD", label: "ETH/USD", base: "ETH", quote: "USD" },
-    { id: "SOL-USD", label: "SOL/USD", base: "SOL", quote: "USD" },
-    { id: "ADA-USD", label: "ADA/USD", base: "ADA", quote: "USD" },
-  ];
+import { mockSignals } from "./mockSignals.js";
 
-  export const DEFAULT_PAIR_ID = "BTC-USD";
+// Unique pairs present in the signals — derived so it can't drift from the data.
+export const PAIRS = [...new Set(mockSignals.map((s) => s.pair))];
+
+export const DEFAULT_PAIR = PAIRS[0]; // "BTC/USDT"
