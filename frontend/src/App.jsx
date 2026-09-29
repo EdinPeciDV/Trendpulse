@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
+import Signals from "./pages/Signals.jsx";
 import About from "./pages/About.jsx";
 
 export default function App() {
@@ -8,6 +9,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="signals" element={<Signals />} />
         <Route path="about" element={<About />} />
       </Route>
     </Routes>
