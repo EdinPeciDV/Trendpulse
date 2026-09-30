@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PairSelector from "../components/PairSelector.jsx";
+import PriceChart from "../components/PriceChart.jsx";
 import SignalsList from "../components/SignalsList.jsx";
 import { mockSignals } from "../data/mockSignals.js";
 import { DEFAULT_PAIR } from "../data/pairs.js";
@@ -11,7 +12,7 @@ export default function Signals() {
   return (
     <main>
       <PairSelector value={selectedPair} onChange={setSelectedPair} />
-      <p>Showing signals for: {selectedPair}</p>
+      <PriceChart pair={selectedPair} />
       <SignalsList signals={filtered} />
     </main>
   );
