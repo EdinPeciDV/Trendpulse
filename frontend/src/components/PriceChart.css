@@ -1,0 +1,23 @@
+.price-chart {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.price-chart__heading {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.price-chart__canvas {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 8px;
+  box-shadow: var(--shadow);
+}
+
+.price-chart__empty {
+  color: var(--muted);
+  padding: 1rem;
+}
