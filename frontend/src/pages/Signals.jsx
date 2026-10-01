@@ -2,18 +2,23 @@ import { useState } from "react";
 import PairSelector from "../components/PairSelector.jsx";
 import PriceChart from "../components/PriceChart.jsx";
 import SignalsList from "../components/SignalsList.jsx";
-import { mockSignals } from "../data/mockSignals.js";
+import { useSignals } from "../hooks/useSignals.js";
 import { DEFAULT_PAIR } from "../data/pairs.js";
 
 export default function Signals() {
   const [selectedPair, setSelectedPair] = useState(DEFAULT_PAIR);
-  const filtered = mockSignals.filter((s) => s.pair === selectedPair);
+  const { status, signals, error, reload } = useSignals(selectedPair);
 
   return (
     <main>
       <PairSelector value={selectedPair} onChange={setSelectedPair} />
       <PriceChart pair={selectedPair} />
-      <SignalsList signals={filtered} />
+      <SignalsList
+        signals={signals}
+        status={status}
+        error={error}
+        onRetry={reload}
+      />
     </main>
   );
 }

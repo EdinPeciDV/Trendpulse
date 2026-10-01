@@ -1,9 +1,38 @@
 import SignalCard from "./SignalCard";
+import StateMessage from "./StateMessage.jsx";
 import "./SignalsList.css";
 
-export default function SignalsList({ signals = [] }) {
+// status defaults to "success" so any existing caller that just passes
+// `signals` keeps working unchanged.
+export default function SignalsList({
+  signals = [],
+  status = "success",
+  error = null,
+  onRetry,
+}) {
+  if (status === "loading") {
+    return <StateMessage variant="loading" title="Loading signals…" />;
+  }
+
+  if (status === "error") {
+    return (
+      <StateMessage
+        variant="error"
+        title="Something went wrong"
+        message={error ?? "Couldn't load signals."}
+        onRetry={onRetry}
+      />
+    );
+  }
+
   if (signals.length === 0) {
-    return <p className="signals-empty">No signals yet.</p>;
+    return (
+      <StateMessage
+        variant="empty"
+        title="No signals yet"
+        message="Nothing for this pair right now — check back soon."
+      />
+    );
   }
 
   return (

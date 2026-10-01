@@ -1,0 +1,68 @@
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  color: var(--muted);
+}
+
+.state__title {
+  color: var(--text-h);
+  font-weight: 600;
+}
+
+.state__message {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.state__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+.state--error .state__icon {
+  color: var(--down);
+}
+
+.state__spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: state-spin 0.7s linear infinite;
+}
+
+@keyframes state-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Be kind to users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .state__spinner {
+    animation-duration: 2s;
+  }
+}
+
+.state__retry {
+  margin-top: 4px;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-bg);
+  color: var(--accent);
+  cursor: pointer;
+}
+.state__retry:hover {
+  background: var(--accent);
+  color: #fff;
+}
