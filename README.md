@@ -1,5 +1,9 @@
 # TrendPulse
 
+> **Note:** This is the open, demo version of TrendPulse. It runs on sample
+> data and is not wired to a live backend — the production app with live
+> signals is private.
+
 > Crypto market signals dashboard — live prices, technical indicators, and ML-driven price-direction predictions.
 
 TrendPulse pulls market data for crypto pairs, computes technical indicators (moving averages, RSI), generates buy/sell signals, and layers on a machine-learning model that predicts short-term price direction. Built as a full-stack learning project.
