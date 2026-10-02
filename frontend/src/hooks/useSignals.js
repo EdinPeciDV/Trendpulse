@@ -1,25 +1,30 @@
 import { useCallback, useEffect, useState } from "react";
+import { isConfigured } from "../lib/supabaseClient.js";
 import { mockSignals } from "../data/mockSignals.js";
 
-// Simulates fetching signals for a pair so the UI has real loading / error
-// states to handle. On Day 14 the only thing that changes is the body of
-// fetchSignals() — swap the setTimeout + mock filter for a Supabase query.
-// The loading / empty / error handling in the components stays exactly the same.
-const LATENCY_MS = 700;
+// The public demo ships intentionally non-functional: with no Supabase
+// credentials (see lib/supabaseClient.js), the live data path is unavailable
+// and the UI shows a clear "not connected" state. The real query lives in the
+// private production repo.
+//
+// Flip USE_SAMPLE_DATA to true to render the demo on bundled sample data
+// instead — handy for screenshots without exposing a live backend.
+const USE_SAMPLE_DATA = false;
+const LATENCY_MS = 500;
 
 function fetchSignals(pair) {
-  // TEMP: visit /signals?fail=1 to force the error state while building the UI.
-  const shouldFail =
-    typeof window !== "undefined" &&
-    new URLSearchParams(window.location.search).has("fail");
-
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (shouldFail) {
-        reject(new Error("Couldn't reach the signals service."));
+      if (USE_SAMPLE_DATA) {
+        resolve(mockSignals.filter((s) => s.pair === pair));
         return;
       }
-      resolve(mockSignals.filter((s) => s.pair === pair));
+      if (!isConfigured) {
+        reject(new Error("Live signals aren't connected in this public demo."));
+        return;
+      }
+      // Real Supabase query lives in the private production repo.
+      reject(new Error("Live data source is not available in this build."));
     }, LATENCY_MS);
   });
 }
