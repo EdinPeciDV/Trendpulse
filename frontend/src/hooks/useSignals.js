@@ -1,32 +1,48 @@
 import { useCallback, useEffect, useState } from "react";
-import { isConfigured } from "../lib/supabaseClient.js";
+import { supabase, isConfigured } from "../../lib/supabaseClient.js";
 import { mockSignals } from "../data/mockSignals.js";
 
-// The public demo ships intentionally non-functional: with no Supabase
-// credentials (see lib/supabaseClient.js), the live data path is unavailable
-// and the UI shows a clear "not connected" state. The real query lives in the
-// private production repo.
-//
-// Flip USE_SAMPLE_DATA to true to render the demo on bundled sample data
-// instead — handy for screenshots without exposing a live backend.
+// With no Supabase credentials (the public demo default) the live path is
+// unavailable and the UI shows a clear "not connected" state. Flip
+// USE_SAMPLE_DATA to render the bundled sample data instead — handy for
+// screenshots without a live backend.
 const USE_SAMPLE_DATA = false;
 const LATENCY_MS = 500;
 
-function fetchSignals(pair) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (USE_SAMPLE_DATA) {
-        resolve(mockSignals.filter((s) => s.pair === pair));
-        return;
-      }
-      if (!isConfigured) {
-        reject(new Error("Live signals aren't connected in this public demo."));
-        return;
-      }
-      // Real Supabase query lives in the private production repo.
-      reject(new Error("Live data source is not available in this build."));
-    }, LATENCY_MS);
-  });
+// Map a Supabase `signals` row to the shape the UI expects.
+// The table stores `created_at`; the components read `time`.
+function toSignal(row) {
+  return {
+    id: row.id,
+    pair: row.pair,
+    type: row.type,
+    price: Number(row.price),
+    change: Number(row.change),
+    confidence: Number(row.confidence),
+    time: row.created_at,
+  };
+}
+
+async function fetchSignals(pair) {
+  if (USE_SAMPLE_DATA) {
+    await new Promise((resolve) => setTimeout(resolve, LATENCY_MS));
+    return mockSignals.filter((s) => s.pair === pair);
+  }
+
+  if (!isConfigured || !supabase) {
+    throw new Error("Live signals aren't connected in this public demo.");
+  }
+
+  // Latest signals for the selected pair, newest first.
+  const { data, error } = await supabase
+    .from("signals")
+    .select("id, pair, type, price, change, confidence, created_at")
+    .eq("pair", pair)
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  if (error) throw new Error(error.message);
+  return (data ?? []).map(toSignal);
 }
 
 // status: "loading" | "success" | "error"
