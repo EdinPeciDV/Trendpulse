@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { supabase, isConfigured } from "../../lib/supabaseClient.js";
 import { mockSignals } from "../data/mockSignals.js";
 
-// With no Supabase credentials (the public demo default) the live path is
+// / With no Supabase credentials (the public demo default) the live path is
 // unavailable and the UI shows a clear "not connected" state. Flip
 // USE_SAMPLE_DATA to render the bundled sample data instead — handy for
 // screenshots without a live backend.
