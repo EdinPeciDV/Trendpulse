@@ -2,8 +2,9 @@
 //
 // Day 17 — Moving-average crossover signal rule.
 //
-// Turns a price series into a single discrete action: "buy", "sell", or
-// "hold". Builds on the Day 15 SMA from services/indicators/.
+// Turns a price series into a signal result: a "buy" / "sell" / "hold"
+// action plus the short/long MA values the decision was made on. Builds
+// on the Day 15 SMA from services/indicators/.
 //
 // Rule (classic MA crossover):
 //   buy   — the short MA crossed ABOVE the long MA on the last bar
@@ -13,17 +14,25 @@
 //   hold  — anything else, including "not enough data yet"
 //
 // We compare the two most recent fully-formed MA points. If either of the
-// last two bars doesn't have both MAs available, we just return "hold" —
+// last two bars doesn't have both MAs available, we return "hold" with
+// shortMA/longMA set to whatever the latest values are (possibly null) —
 // no fabricated signals from a half-filled window.
 
 import { sma } from "../indicators/movingAverage.js";
+
+/**
+ * @typedef {Object} SignalResult
+ * @property {"buy" | "sell" | "hold"} signal
+ * @property {number | null} shortMA   latest short-MA value (null if n/a)
+ * @property {number | null} longMA    latest long-MA value  (null if n/a)
+ */
 
 /**
  * @param {number[]} prices  price series, oldest → newest
  * @param {object}   [opts]
  * @param {number}   [opts.shortPeriod=10]
  * @param {number}   [opts.longPeriod=20]
- * @returns {"buy" | "sell" | "hold"}
+ * @returns {SignalResult}
  */
 export function maCrossoverSignal(prices, opts = {}) {
   const { shortPeriod = 10, longPeriod = 20 } = opts;
@@ -39,18 +48,25 @@ export function maCrossoverSignal(prices, opts = {}) {
     throw new RangeError("shortPeriod must be less than longPeriod");
   }
 
-  // Need at least longPeriod + 1 points to see a "previous" and "current" bar
-  // where both MAs are defined.
-  if (prices.length < longPeriod + 1) return "hold";
+  // Not enough history for even one full long-MA window.
+  if (prices.length < longPeriod) {
+    return { signal: "hold", shortMA: null, longMA: null };
+  }
 
   const shortMA = sma(prices, shortPeriod);
   const longMA = sma(prices, longPeriod);
 
   const i = prices.length - 1;
-  const prevShort = shortMA[i - 1];
   const currShort = shortMA[i];
-  const prevLong = longMA[i - 1];
   const currLong = longMA[i];
+
+  // Can't compare against a previous bar yet.
+  if (i < 1) {
+    return { signal: "hold", shortMA: currShort, longMA: currLong };
+  }
+
+  const prevShort = shortMA[i - 1];
+  const prevLong = longMA[i - 1];
 
   if (
     prevShort === null ||
@@ -58,10 +74,12 @@ export function maCrossoverSignal(prices, opts = {}) {
     prevLong === null ||
     currLong === null
   ) {
-    return "hold";
+    return { signal: "hold", shortMA: currShort, longMA: currLong };
   }
 
-  if (prevShort <= prevLong && currShort > currLong) return "buy";
-  if (prevShort >= prevLong && currShort < currLong) return "sell";
-  return "hold";
+  let signal = "hold";
+  if (prevShort <= prevLong && currShort > currLong) signal = "buy";
+  else if (prevShort >= prevLong && currShort < currLong) signal = "sell";
+
+  return { signal, shortMA: currShort, longMA: currLong };
 }
