@@ -7,3 +7,4 @@
 //   { signal: "buy" | "sell" | "hold", ...indicator values used }
 
 export { maCrossoverSignal } from "./maCrossover.js";
+export { rsiThresholdSignal } from "./rsiThreshold.js";
