@@ -8,3 +8,4 @@
 
 export { maCrossoverSignal } from "./maCrossover.js";
 export { rsiThresholdSignal } from "./rsiThreshold.js";
+export { maCrossoverRow, rsiThresholdRow } from "./toSignalRow.js";
