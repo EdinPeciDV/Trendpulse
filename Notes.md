@@ -16,3 +16,21 @@ Barrel at services/signals/index.js so future rules land next to it.
 Self-check in maCrossover.test.js.
 Next: wire a signal into the Supabase signals table / UI.
 
+Day 19: wired the rules to the UI via the Supabase `signals` table.
+toSignalRow.js adapts per-rule outputs to the row shape useSignals reads
+({ pair, type, price, change, confidence, created_at }), with per-rule
+confidence (MA gap / RSI distance past threshold). publishSignals.js
+runs both rules over the mock price series and either inserts rows into
+Supabase (SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in .env) or logs them
+when env isn't configured.
+
+To run:
+  node services/signals/publishSignals.js       # dry run (logs rows)
+  SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... \
+    node services/signals/publishSignals.js     # real insert
+
+Note: adapter emits lowercase types; the DB CHECK constraint is uppercase
+(see 0001_init.sql), so publishSignals normalizes at insert time.
+Next: swap the mock price source for the real `prices` table once it's
+being populated.
+
