@@ -43,6 +43,10 @@ venv/
 env/
 *.egg-info/
 
+# Generated ML datasets (keep the folder, drop the CSVs)
+ml/data/*.csv
+!ml/data/.gitkeep
+
 # Coverage / test
 coverage/
 .pytest_cache/
