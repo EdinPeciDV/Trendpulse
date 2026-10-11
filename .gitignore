@@ -43,8 +43,10 @@ venv/
 env/
 *.egg-info/
 
-# Generated ML datasets (keep the folder, drop the CSVs)
+# Generated ML datasets (keep the folders, drop the CSVs)
+ml/data/**/*.csv
 ml/data/*.csv
+!ml/data/**/.gitkeep
 !ml/data/.gitkeep
 
 # Coverage / test
