@@ -2,6 +2,16 @@
 
 ML pipeline for TrendPulse.
 
+## Data pipeline
+
+```
+fetch historical  ->  clean  ->  feature-engineer  ->  model-ready CSV
+```
+
+- Raw pulls land in `ml/data/raw/` (one `*_historical.csv` per asset).
+- Cleaning + feature engineering writes to `ml/data/processed/features.csv`.
+- Everything under `ml/data/` is gitignored except the `.gitkeep` markers.
+
 ## Setup
 
 ```
