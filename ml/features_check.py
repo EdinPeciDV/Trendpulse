@@ -54,12 +54,12 @@ def main():
     assert pd.api.types.is_numeric_dtype(df["total_volume"]), "total_volume must be numeric"
 
     df = engineer(df)
-    for col in ("daily_return", "ma_7", "ma_14", "volatility_7", "target_up"):
+    for col in ("daily_return", "log_return", "ma_7", "ma_14", "volatility_7", "target_up"):
         assert col in df.columns, f"missing {col}"
 
     # After the 14-day warmup, feature cols should be fully populated.
     tail = df.iloc[14:]
-    for col in ("daily_return", "ma_7", "ma_14", "volatility_7"):
+    for col in ("daily_return", "log_return", "ma_7", "ma_14", "volatility_7"):
         assert tail[col].isna().sum() == 0, f"NaN in {col} after warmup"
 
     # target_up is undefined on the last row only.

@@ -7,6 +7,7 @@ a features CSV ready for modeling.
 import argparse
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 
@@ -29,6 +30,7 @@ def clean(df):
 def engineer(df):
     df = df.copy()
     df["daily_return"] = df["price"].pct_change()
+    df["log_return"] = np.log(df["price"] / df["price"].shift(1))
     df["ma_7"] = df["price"].rolling(window=7).mean()
     df["ma_14"] = df["price"].rolling(window=14).mean()
     df["volatility_7"] = df["daily_return"].rolling(window=7).std()
