@@ -41,3 +41,15 @@ python ml/features_check.py
 ```
 
 Prints `features self-check: OK` on success, exits non-zero on failure.
+
+## Train the baseline model
+
+```
+python ml/train.py
+```
+
+- `ml/labels.py` adds `direction`: 1 if the next price is higher, else 0.
+  The last row has no future price and is dropped.
+- Split is time-ordered: the earliest 80% of rows train, the latest 20% test.
+- Model is `StandardScaler` + `LogisticRegression`; prints train/test accuracy.
+- Saves the fitted pipeline to `ml/models/baseline.joblib` (committed, it is small).
