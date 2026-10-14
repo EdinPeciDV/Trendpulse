@@ -29,6 +29,7 @@ def clean(df):
 
 def engineer(df):
     df = df.copy()
+    # These columns (plus total_volume) are the FEATURES consumed by train.py.
     df["daily_return"] = df["price"].pct_change()
     df["log_return"] = np.log(df["price"] / df["price"].shift(1))
     df["ma_7"] = df["price"].rolling(window=7).mean()
