@@ -53,3 +53,5 @@ python ml/train.py
 - Split is time-ordered: the earliest 80% of rows train, the latest 20% test.
 - Model is `StandardScaler` + `LogisticRegression`; prints train/test accuracy.
 - Saves the fitted pipeline to `ml/models/baseline.joblib` (committed, it is small).
+
+Next: compare the baseline against a majority-class benchmark before adding features.
