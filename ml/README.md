@@ -54,4 +54,19 @@ python ml/train.py
 - Model is `StandardScaler` + `LogisticRegression`; prints train/test accuracy.
 - Saves the fitted pipeline to `ml/models/baseline.joblib` (committed, it is small).
 
-Next: compare the baseline against a majority-class benchmark before adding features.
+### Majority-class benchmark
+
+`train.py` also prints the accuracy of always predicting the most common
+training label, and whether the model beats it:
+
+```
+test accuracy:  0.500
+majority-class benchmark (predict 0): 0.500
+beats benchmark: False
+```
+
+On the current small sample the baseline does not beat the benchmark, so the
+reported test accuracy is not yet evidence of a learned signal.
+
+Next: add features and grow the training window until the model clears the
+benchmark.
