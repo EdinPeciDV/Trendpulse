@@ -94,3 +94,19 @@ Results as of 2026-10-16, on 16 held-out test rows:
 The model predicts "up" for every test row (confusion matrix `[[0, 8], [0, 8]]`),
 so the up-class F1 comes from that class making up half of the test set, not
 from any skill. An AUC below 0.5 confirms the baseline has no ranking signal yet.
+
+## Prediction API
+
+```
+pip install -r ml/requirements.txt
+uvicorn ml.api:app --reload
+```
+
+`POST /predict` takes one feature row (the six `train.py` features) and returns
+the predicted next-bar direction plus the model's probability for it:
+
+```
+curl -X POST localhost:8000/predict -H "Content-Type: application/json" \
+  -d '{"daily_return":0.0133,"log_return":0.0132,"ma_7":39646.37,"ma_14":39205.39,"volatility_7":0.0171,"total_volume":1718414710}'
+# {"direction":"up","confidence":0.6817}
+```
