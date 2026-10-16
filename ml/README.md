@@ -70,3 +70,27 @@ reported test accuracy is not yet evidence of a learned signal.
 
 Next: add features and grow the training window until the model clears the
 benchmark.
+
+## Model Evaluation
+
+```
+python ml/evaluate.py
+```
+
+Loads `ml/models/baseline.joblib`, rebuilds the same time-ordered test split
+as `train.py` (no retraining), prints a summary, and writes
+`ml/results/metrics.json` (accuracy, per-class precision/recall/F1, confusion
+matrix, ROC AUC).
+
+Results as of 2026-10-16, on 16 held-out test rows:
+
+| metric      | value |
+|-------------|-------|
+| accuracy    | 0.500 |
+| F1 (up)     | 0.667 |
+| F1 (macro)  | 0.333 |
+| ROC AUC     | 0.469 |
+
+The model predicts "up" for every test row (confusion matrix `[[0, 8], [0, 8]]`),
+so the up-class F1 comes from that class making up half of the test set, not
+from any skill. An AUC below 0.5 confirms the baseline has no ranking signal yet.
