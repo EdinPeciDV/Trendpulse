@@ -110,3 +110,20 @@ curl -X POST localhost:8000/predict -H "Content-Type: application/json" \
   -d '{"daily_return":0.0133,"log_return":0.0132,"ma_7":39646.37,"ma_14":39205.39,"volatility_7":0.0171,"total_volume":1718414710}'
 # {"direction":"up","confidence":0.6817}
 ```
+
+## Used by the signal flow
+
+`services/signals/modelFilter.js` calls `/predict` for each rule signal when
+`ML_API_URL` is set (e.g. `http://127.0.0.1:8000`):
+
+- **confirmed**: model agrees with the buy/sell, signal kept
+- **vetoed**: model disagrees with confidence >= 0.55, signal becomes "hold"
+- **neutral**: weak disagreement, or the rule already says "hold"
+- **skipped**: no prediction (URL unset, API down, too little history)
+
+The model never creates a trade. If the API is unreachable, signals pass
+through unchanged as "skipped".
+
+```
+ML_API_URL=http://127.0.0.1:8000 node services/signals/modelFilter.test.js
+```
