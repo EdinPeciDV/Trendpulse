@@ -48,3 +48,37 @@ Note: fetch_historical.py isn't in the repo yet, so ml/data/ is populated
 externally for now. Schema is CoinGecko-shaped (date, price, total_volume).
 Next: baseline logistic-regression on target_up as a sanity check.
 
+Day 21: baseline price-direction model in ml/train.py.
+The label lives in ml/labels.py: direction = 1 if the next bar's price
+is higher, else 0. Features at row t only use data up to t and the last
+row (no next price) is dropped, so there's no lookahead. train.py fits
+a scaled logistic-regression on a time-ordered split (no shuffling) and
+saves { model, features } to ml/models/baseline.joblib.
+Next: proper evaluation against a dumb benchmark.
+
+Day 22: evaluation + majority-class benchmark.
+train.py now also prints a majority-class benchmark (always predict the
+most common training label) — a model that can't beat it has learned
+nothing. ml/evaluate.py reloads the saved model, rebuilds the same
+held-out split and writes accuracy, F1, ROC AUC, confusion matrix and
+the per-class report to ml/results/metrics.json. Honest read: on this
+small sample the baseline sits at 50% and predicts "up" every time —
+it's a plumbing check, not an edge.
+Next: serve the model so the signal flow can ask it.
+
+Day 23: FastAPI prediction endpoint in ml/api.py.
+Loads ml/models/baseline.joblib once at startup and exposes
+POST /predict: send one feature row, get back the predicted next-bar
+direction ("up" / "down") and the model's confidence in it.
+
+To run:
+  uvicorn ml.api:app --reload
+
+Day 24: model filter for rule signals in services/signals/modelFilter.js.
+The rules still decide buy / sell / hold; the model only reviews them.
+Verdicts: confirmed (model agrees), vetoed (model confidently disagrees
+-> signal downgraded to hold), neutral (low-confidence disagreement or
+rule already says hold), skipped (no prediction). The model never
+creates a trade on its own, and it fails open: if ML_API_URL is unset
+or the API is down, the signal passes through as "skipped".
+Next: show the prediction + confidence in the UI.

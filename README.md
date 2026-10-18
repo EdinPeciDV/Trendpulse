@@ -17,20 +17,24 @@ TrendPulse pulls market data for crypto pairs, computes technical indicators (mo
 
 ## Roadmap
 
-- [ ] Frontend scaffold — Vite + React, routing, landing page
-- [ ] Layout, navigation, and core UI components
-- [ ] Signals list and price chart (mock data)
-- [ ] Theme and styling
-- [ ] Supabase project + schema (prices, signals)
-- [ ] Fetch live market data and store it
-- [ ] Wire frontend to real Supabase data
-- [ ] Indicators: moving average, RSI
-- [ ] Signal rules (e.g. MA crossover)
-- [ ] Python ML pipeline — data pull, cleaning, features
-- [ ] Baseline model (price direction up/down) + evaluation
-- [ ] Prediction endpoint and integration into signal flow
+- [x] Frontend scaffold — Vite + React, routing, landing page
+- [x] Layout, navigation, and core UI components
+- [x] Signals list and price chart (mock data)
+- [x] Theme and styling
+- [x] Supabase project + schema (prices, signals)
+- [x] Fetch live market data and store it
+- [x] Wire frontend to real Supabase data
+- [x] Indicators: moving average, RSI
+- [x] Signal rules (e.g. MA crossover)
+- [x] Python ML pipeline — data pull, cleaning, features
+- [x] Baseline model (price direction up/down) + evaluation
+- [x] Prediction endpoint and integration into signal flow
 - [ ] Show predictions + confidence in the UI
-- [ ] Deploy, screenshots, full README, tests
+- [ ] Deploy to Netlify + live demo link
+- [ ] Screenshots / GIF in README
+- [ ] Full README (features, architecture, run steps)
+- [ ] Tests for one module
+- [ ] Launch polish (pin repo, profile README, blurb)
 
 ## Status
 
