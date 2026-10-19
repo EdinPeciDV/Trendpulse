@@ -82,3 +82,17 @@ rule already says hold), skipped (no prediction). The model never
 creates a trade on its own, and it fails open: if ML_API_URL is unset
 or the API is down, the signal passes through as "skipped".
 Next: show the prediction + confidence in the UI.
+
+Day 25: ML prediction on the signal cards.
+New PredictionBadge component (frontend/src/components/PredictionBadge.jsx)
+shows the model's next-bar direction (▲ up / ▼ down), its confidence, and
+the Day 24 verdict as a chip (confirmed / vetoed / neutral). No prediction
+or a "skipped" verdict renders a muted "model —".
+Two confidences on each card now, kept clearly apart: "rule NN%" is the
+rule's own confidence (MA gap / RSI distance), "model ▲ NN%" is the
+classifier's probability for its predicted direction.
+Mock signals carry prediction / predictionConfidence / modelVerdict;
+useSignals reads model_direction / model_confidence / model_verdict
+defensively but doesn't select them, since the live `signals` table has
+no model columns yet.
+Next: persist model fields to the DB, then deploy to Netlify.

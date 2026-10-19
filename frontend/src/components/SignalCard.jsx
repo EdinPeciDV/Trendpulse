@@ -1,3 +1,4 @@
+import PredictionBadge from "./PredictionBadge.jsx";
 import "./SignalsList.css";
 
 // Formats a price sensibly whether it's $63k or $0.44
@@ -15,7 +16,8 @@ function formatTime(iso) {
 }
 
 export default function SignalCard({ signal }) {
-  const { pair, type, price, change, confidence, time } = signal;
+  const { pair, type, price, change, confidence, time, prediction, predictionConfidence, modelVerdict } =
+    signal;
   const changeUp = change >= 0;
 
   return (
@@ -31,8 +33,16 @@ export default function SignalCard({ signal }) {
         <span className={changeUp ? "change change--up" : "change change--down"}>
           {changeUp ? "▲" : "▼"} {Math.abs(change).toFixed(1)}%
         </span>
-        <span className="signal-card__conf">conf {Math.round(confidence * 100)}%</span>
+        <span className="signal-card__conf">rule {Math.round(confidence * 100)}%</span>
         <span className="signal-card__time">{formatTime(time)}</span>
+      </div>
+
+      <div className="signal-card__model">
+        <PredictionBadge
+          direction={prediction}
+          confidence={predictionConfidence}
+          verdict={modelVerdict}
+        />
       </div>
     </div>
   );

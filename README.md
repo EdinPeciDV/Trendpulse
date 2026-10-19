@@ -29,7 +29,7 @@ TrendPulse pulls market data for crypto pairs, computes technical indicators (mo
 - [x] Python ML pipeline — data pull, cleaning, features
 - [x] Baseline model (price direction up/down) + evaluation
 - [x] Prediction endpoint and integration into signal flow
-- [ ] Show predictions + confidence in the UI
+- [x] Show predictions + confidence in the UI
 - [ ] Deploy to Netlify + live demo link
 - [ ] Screenshots / GIF in README
 - [ ] Full README (features, architecture, run steps)

@@ -46,4 +46,6 @@
 .change--up   { color: #128a4a; }
 .change--down { color: #c0392b; }
 
+.signal-card__model { margin-top: 0.5rem; }
+
 .signals-empty { text-align: center; color: #5a6472; padding: 2rem; }

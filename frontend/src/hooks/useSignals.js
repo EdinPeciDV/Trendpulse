@@ -20,6 +20,11 @@ function toSignal(row) {
     change: Number(row.change),
     confidence: Number(row.confidence),
     time: row.created_at,
+    // Model fields aren't in the live table yet (and aren't selected below);
+    // read them defensively so a future column just works.
+    prediction: row.model_direction ?? null,
+    predictionConfidence: row.model_confidence != null ? Number(row.model_confidence) : null,
+    modelVerdict: row.model_verdict ?? null,
   };
 }
 
