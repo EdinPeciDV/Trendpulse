@@ -1,4 +1,3 @@
-import { PAIRS } from "../data/pairs.js";
 import "./PairSelector.css";
 
 export default function PairSelector({ value, onChange, pairs }) {
