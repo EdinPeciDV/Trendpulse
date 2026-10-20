@@ -1,0 +1,12 @@
+# Netlify build for the Vite frontend.
+# `publish` is relative to `base`, so "dist" resolves to frontend/dist.
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+# SPA fallback so react-router client-side routes work on refresh.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
