@@ -96,3 +96,12 @@ useSignals reads model_direction / model_confidence / model_verdict
 defensively but doesn't select them, since the live `signals` table has
 no model columns yet.
 Next: persist model fields to the DB, then deploy to Netlify.
+
+Day 26: Netlify build config (netlify.toml at the repo root).
+base = "frontend", command = "npm run build", publish = "dist", plus a
+/* -> /index.html (200) fallback so react-router routes survive a refresh.
+Gotcha: Netlify resolves `publish` relative to `base`, so "frontend/dist"
+would point at frontend/frontend/dist. Checked with a clean `npm ci` +
+build inside frontend/ (what Netlify runs). The deploy itself is done from
+the Netlify UI: import the repo, accept netlify.toml, deploy.
+Next: live demo link in the README once the site is up.
