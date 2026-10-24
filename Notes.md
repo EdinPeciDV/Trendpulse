@@ -105,3 +105,11 @@ would point at frontend/frontend/dist. Checked with a clean `npm ci` +
 build inside frontend/ (what Netlify runs). The deploy itself is done from
 the Netlify UI: import the repo, accept netlify.toml, deploy.
 Next: live demo link in the README once the site is up.
+
+Day 27: unit tests for the direction label.
+ml/test_labels.py checks add_direction_label on hand-picked prices:
+up/down sequence, a flat next bar (0, not up), 0-1 rows (empty frame,
+column still present), and custom price/label column names without
+mutating the input. pytest pinned in ml/requirements.txt; the file also
+runs as a plain script. ml/README now has a Tests section.
+Next: make `python -m pytest` work from the repo root with no path args.
