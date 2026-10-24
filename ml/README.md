@@ -127,3 +127,15 @@ through unchanged as "skipped".
 ```
 ML_API_URL=http://127.0.0.1:8000 node services/signals/modelFilter.test.js
 ```
+
+## Tests
+
+Unit tests for the direction label live in `ml/test_labels.py`:
+
+```
+python -m pytest ml/test_labels.py
+```
+
+They cover known up/down sequences, a flat next bar (counts as "not up"),
+too-short input, and custom column names. No pytest? Run
+`python ml/test_labels.py` directly.
