@@ -113,3 +113,10 @@ column still present), and custom price/label column names without
 mutating the input. pytest pinned in ml/requirements.txt; the file also
 runs as a plain script. ml/README now has a Tests section.
 Next: make `python -m pytest` work from the repo root with no path args.
+
+Day 28: one-command test run.
+pytest.ini at the repo root (testpaths = ml), so plain `python -m pytest`
+finds ml/test_labels.py without path args. Added a check that the label
+column is an integer 0/1, so a dtype slip (bool/float) gets caught before
+it reaches training. 5 label tests, all passing.
+Next: tests for the feature builder.
