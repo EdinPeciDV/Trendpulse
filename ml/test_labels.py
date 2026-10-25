@@ -41,6 +41,12 @@ def test_input_is_not_mutated_and_columns_are_configurable():
     assert out.index.tolist() == [0, 1]
 
 
+def test_label_is_integer_zero_or_one():
+    out = add_direction_label(pd.DataFrame({"price": [3.0, 1.0, 2.0, 2.5]}))
+    assert out["direction"].dtype.kind == "i"
+    assert set(out["direction"]) <= {0, 1}
+
+
 if __name__ == "__main__":
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for t in tests:
