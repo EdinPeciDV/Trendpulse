@@ -120,3 +120,11 @@ finds ml/test_labels.py without path args. Added a check that the label
 column is an integer 0/1, so a dtype slip (bool/float) gets caught before
 it reaches training. 5 label tests, all passing.
 Next: tests for the feature builder.
+
+Day 29: tests for the feature builder.
+ml/test_features.py covers clean() (duplicate dates keep the last row,
+bad prices coerced to NaN then forward-filled, leading rows with no price
+dropped) and engineer() (returns, ma_7 / ma_14 warm-up NaNs and values,
+target_up with NA on the last row, input not mutated). 11 ml tests now,
+all run with a plain `python -m pytest`.
+Next: wrap up the 30-day streak with a final summary.

@@ -130,12 +130,13 @@ ML_API_URL=http://127.0.0.1:8000 node services/signals/modelFilter.test.js
 
 ## Tests
 
-Unit tests for the direction label live in `ml/test_labels.py`:
+Unit tests live in `ml/test_labels.py` (direction label) and
+`ml/test_features.py` (cleaning + feature engineering). From the repo root:
 
 ```
-python -m pytest ml/test_labels.py
+python -m pytest
 ```
 
-They cover known up/down sequences, a flat next bar (counts as "not up"),
+The label tests cover known up/down sequences, a flat next bar (counts as "not up"),
 too-short input, and custom column names. No pytest? Run
 `python ml/test_labels.py` directly.
